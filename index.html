@@ -25,7 +25,7 @@
         <button onclick="filtrar('Arquero', this)">Arqueros</button>
         <button id="btn-defensas" onclick="abrirSub('defensas', 'Defensa', this)">Defensas</button>
         <button id="btn-volantes" onclick="abrirSub('volantes', 'Volante', this)">Volantes</button>
-        <button onclick="filtrar('Delantero', this)">Delanteros</button>
+        <button id="btn-delanteros" onclick="abrirSub('delanteros', 'Delantero', this)">Delanteros</button>
         <div id="defensas" class="submenu">
             <button onclick="filtrar('Lateral', this)">Laterales</button>
             <button onclick="filtrar('Lateral izquierdo', this)">Lat. izquierdo</button>
@@ -35,6 +35,10 @@
         <div id="volantes" class="submenu">
             <button onclick="filtrar('Contencion', this)">Contención</button>
             <button onclick="filtrar('Armado', this)">Armado</button>
+        </div>
+        <div id="delanteros" class="submenu">
+            <button onclick="filtrar('Referencia', this)">Referencia</button>
+            <button onclick="filtrar('Extremo', this)">Extremo</button>
         </div>
     </div>
     <table id="tabla">
@@ -60,11 +64,11 @@
         <tr data-rol="Armado"><td>Matías Orozco</td><td>Volante</td><td>Armado</td><td>Castellón</td><td>España</td><td>Sí</td></tr>
         <tr data-rol="Contencion"><td>Richard Ríos</td><td>Volante</td><td>Contención</td><td>Benfica</td><td>Portugal</td><td>No</td></tr>
         <tr data-rol="Armado"><td>Yáser Asprilla</td><td>Volante</td><td>Armado</td><td>Girona</td><td>España</td><td>No</td></tr>
-        <tr data-rol="Delantero"><td>Camilo Durán</td><td>Delantero</td><td>Delantero</td><td>Junior</td><td>Colombia</td><td>Sí</td></tr>
-        <tr data-rol="Delantero"><td>Carlos Andrés Gómez</td><td>Delantero</td><td>Delantero</td><td>Independiente Medellín</td><td>Colombia</td><td>Sí</td></tr>
-        <tr data-rol="Delantero"><td>Kevin Viveros</td><td>Delantero</td><td>Delantero</td><td>Junior</td><td>Colombia</td><td>Sí</td></tr>
-        <tr data-rol="Delantero"><td>Luis Suárez</td><td>Delantero</td><td>Delantero</td><td>Almería</td><td>España</td><td>No</td></tr>
-        <tr data-rol="Delantero"><td>Óscar Perea</td><td>Delantero</td><td>Delantero</td><td>Deportivo Cali</td><td>Colombia</td><td>Sí</td></tr>
+        <tr data-rol="Referencia"><td>Camilo Durán</td><td>Delantero</td><td>Referencia</td><td>Junior</td><td>Colombia</td><td>Sí</td></tr>
+        <tr data-rol="Extremo"><td>Carlos Andrés Gómez</td><td>Delantero</td><td>Extremo</td><td>Independiente Medellín</td><td>Colombia</td><td>Sí</td></tr>
+        <tr data-rol="Referencia"><td>Kevin Viveros</td><td>Delantero</td><td>Referencia</td><td>Junior</td><td>Colombia</td><td>Sí</td></tr>
+        <tr data-rol="Referencia"><td>Luis Suárez</td><td>Delantero</td><td>Referencia</td><td>Almería</td><td>España</td><td>No</td></tr>
+        <tr data-rol="Extremo"><td>Óscar Perea</td><td>Delantero</td><td>Extremo</td><td>Deportivo Cali</td><td>Colombia</td><td>Sí</td></tr>
     </table>
     <script>
         function abrirSub(id, puesto, boton) {
@@ -80,17 +84,21 @@
             boton.classList.add('activo');
             const esDefensa = puesto === 'Defensa' || puesto === 'Central' || puesto.startsWith('Lateral');
             const esVolante = puesto === 'Volante' || puesto === 'Contencion' || puesto === 'Armado';
+            const esDelantero = puesto === 'Delantero' || puesto === 'Referencia' || puesto === 'Extremo';
             if (!esDefensa) document.getElementById('defensas').classList.remove('abierto');
             if (!esVolante) document.getElementById('volantes').classList.remove('abierto');
+            if (!esDelantero) document.getElementById('delanteros').classList.remove('abierto');
             if (esDefensa) document.getElementById('btn-defensas').classList.add('activo');
             if (esVolante) document.getElementById('btn-volantes').classList.add('activo');
+            if (esDelantero) document.getElementById('btn-delanteros').classList.add('activo');
             document.querySelectorAll('#tabla tr').forEach((fila, i) => {
                 if (i === 0) return;
                 const rol = fila.dataset.rol;
                 const ok = puesto === 'Todos'
-                    || puesto === 'Defensa' && (rol === 'Central' || rol.startsWith('Lateral'))
-                    || puesto === 'Volante' && (rol === 'Contencion' || rol === 'Armado')
-                    || puesto === 'Lateral' && rol.startsWith('Lateral')
+                    || (puesto === 'Defensa' && (rol === 'Central' || rol.startsWith('Lateral')))
+                    || (puesto === 'Volante' && (rol === 'Contencion' || rol === 'Armado'))
+                    || (puesto === 'Delantero' && (rol === 'Referencia' || rol === 'Extremo'))
+                    || (puesto === 'Lateral' && rol.startsWith('Lateral'))
                     || rol === puesto;
                 fila.style.display = ok ? '' : 'none';
             });
