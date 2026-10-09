@@ -10,6 +10,8 @@
         .filtros { text-align: center; margin: 16px 0; }
         button { margin: 4px; padding: 8px 14px; border: 0; border-radius: 6px; background: #003893; color: white; cursor: pointer; }
         button.activo { background: #fcd116; color: #003893; }
+        .submenu { display: none; margin-top: 8px; }
+        .submenu.abierto { display: block; }
         table { width: 100%; border-collapse: collapse; background: white; }
         th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
         th { background: #003893; color: white; }
@@ -21,12 +23,15 @@
     <div class="filtros">
         <button class="activo" onclick="filtrar('Todos', this)">Todos</button>
         <button onclick="filtrar('Arquero', this)">Arqueros</button>
-        <button onclick="filtrar('Lateral', this)">Laterales</button>
-        <button onclick="filtrar('Lateral izquierdo', this)">Lat. izquierdo</button>
-        <button onclick="filtrar('Lateral derecho', this)">Lat. derecho</button>
-        <button onclick="filtrar('Central', this)">Centrales</button>
+        <button id="btn-defensas" onclick="abrirDefensas(this)">Defensas</button>
         <button onclick="filtrar('Volante', this)">Volantes</button>
         <button onclick="filtrar('Delantero', this)">Delanteros</button>
+        <div id="submenu" class="submenu">
+            <button onclick="filtrar('Lateral', this)">Laterales</button>
+            <button onclick="filtrar('Lateral izquierdo', this)">Lat. izquierdo</button>
+            <button onclick="filtrar('Lateral derecho', this)">Lat. derecho</button>
+            <button onclick="filtrar('Central', this)">Centrales</button>
+        </div>
     </div>
     <table id="tabla">
         <tr><th>Nombre</th><th>Posición</th><th>Puesto</th><th>Club</th><th>País</th><th>Debutante</th></tr>
@@ -58,13 +63,24 @@
         <tr data-rol="Delantero"><td>Óscar Perea</td><td>Delantero</td><td>Delantero</td><td>Deportivo Cali</td><td>Colombia</td><td>Sí</td></tr>
     </table>
     <script>
+        function abrirDefensas(boton) {
+            document.getElementById('submenu').classList.toggle('abierto');
+            filtrar('Defensa', boton);
+        }
         function filtrar(puesto, boton) {
-            document.querySelectorAll('button').forEach(b => b.classList.remove('activo'));
+            document.querySelectorAll('.filtros > button').forEach(b => b.classList.remove('activo'));
+            document.querySelectorAll('.submenu button').forEach(b => b.classList.remove('activo'));
             boton.classList.add('activo');
+            if (puesto !== 'Defensa' && !puesto.startsWith('Lateral') && puesto !== 'Central') {
+                document.getElementById('submenu').classList.remove('abierto');
+            } else {
+                document.getElementById('btn-defensas').classList.add('activo');
+            }
             document.querySelectorAll('#tabla tr').forEach((fila, i) => {
                 if (i === 0) return;
                 const rol = fila.dataset.rol;
                 const ok = puesto === 'Todos'
+                    || puesto === 'Defensa'
                     || rol === puesto
                     || (puesto === 'Lateral' && rol.startsWith('Lateral'));
                 fila.style.display = ok ? '' : 'none';
