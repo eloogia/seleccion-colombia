@@ -23,14 +23,18 @@
     <div class="filtros">
         <button class="activo" onclick="filtrar('Todos', this)">Todos</button>
         <button onclick="filtrar('Arquero', this)">Arqueros</button>
-        <button id="btn-defensas" onclick="abrirDefensas(this)">Defensas</button>
-        <button onclick="filtrar('Volante', this)">Volantes</button>
+        <button id="btn-defensas" onclick="abrirSub('defensas', 'Defensa', this)">Defensas</button>
+        <button id="btn-volantes" onclick="abrirSub('volantes', 'Volante', this)">Volantes</button>
         <button onclick="filtrar('Delantero', this)">Delanteros</button>
-        <div id="submenu" class="submenu">
+        <div id="defensas" class="submenu">
             <button onclick="filtrar('Lateral', this)">Laterales</button>
             <button onclick="filtrar('Lateral izquierdo', this)">Lat. izquierdo</button>
             <button onclick="filtrar('Lateral derecho', this)">Lat. derecho</button>
             <button onclick="filtrar('Central', this)">Centrales</button>
+        </div>
+        <div id="volantes" class="submenu">
+            <button onclick="filtrar('Contencion', this)">Contención</button>
+            <button onclick="filtrar('Armado', this)">Armado</button>
         </div>
     </div>
     <table id="tabla">
@@ -46,16 +50,16 @@
         <tr data-rol="Central"><td>Kevin Andrade</td><td>Defensa</td><td>Central</td><td>Zenit</td><td>Rusia</td><td>Sí</td></tr>
         <tr data-rol="Central"><td>Royer Caicedo</td><td>Defensa</td><td>Central</td><td>Cercle Brugge</td><td>Bélgica</td><td>Sí</td></tr>
         <tr data-rol="Lateral izquierdo"><td>Samuel Velásquez</td><td>Defensa</td><td>Lateral izquierdo</td><td>Atlético Nacional</td><td>Colombia</td><td>Sí</td></tr>
-        <tr data-rol="Volante"><td>Daniel Arcila</td><td>Volante</td><td>Volante</td><td>Junior</td><td>Colombia</td><td>Sí</td></tr>
-        <tr data-rol="Volante"><td>Gustavo Puerta</td><td>Volante</td><td>Volante</td><td>Hoffenheim</td><td>Alemania</td><td>No</td></tr>
-        <tr data-rol="Volante"><td>Jaminton Campaz</td><td>Volante</td><td>Volante</td><td>Rosario Central</td><td>Argentina</td><td>Sí</td></tr>
-        <tr data-rol="Volante"><td>Jhon Arias</td><td>Volante</td><td>Volante</td><td>Wolverhampton</td><td>Inglaterra</td><td>No</td></tr>
-        <tr data-rol="Volante"><td>Jhon Solís</td><td>Volante</td><td>Volante</td><td>Birmingham City</td><td>Inglaterra</td><td>Sí</td></tr>
-        <tr data-rol="Volante"><td>Juan Manuel Rengifo</td><td>Volante</td><td>Volante</td><td>Atlético Nacional</td><td>Colombia</td><td>Sí</td></tr>
-        <tr data-rol="Volante"><td>Kevin Castaño</td><td>Volante</td><td>Volante</td><td>Cruz Azul</td><td>México</td><td>Sí</td></tr>
-        <tr data-rol="Volante"><td>Matías Orozco</td><td>Volante</td><td>Volante</td><td>Independiente Medellín</td><td>Colombia</td><td>Sí</td></tr>
-        <tr data-rol="Volante"><td>Richard Ríos</td><td>Volante</td><td>Volante</td><td>Benfica</td><td>Portugal</td><td>No</td></tr>
-        <tr data-rol="Volante"><td>Yáser Asprilla</td><td>Volante</td><td>Volante</td><td>Girona</td><td>España</td><td>No</td></tr>
+        <tr data-rol="Armado"><td>Daniel Arcila</td><td>Volante</td><td>Armado</td><td>León</td><td>México</td><td>Sí</td></tr>
+        <tr data-rol="Contencion"><td>Gustavo Puerta</td><td>Volante</td><td>Contención</td><td>Hoffenheim</td><td>Alemania</td><td>No</td></tr>
+        <tr data-rol="Armado"><td>Jaminton Campaz</td><td>Volante</td><td>Armado</td><td>Rosario Central</td><td>Argentina</td><td>Sí</td></tr>
+        <tr data-rol="Armado"><td>Jhon Arias</td><td>Volante</td><td>Armado</td><td>Wolverhampton</td><td>Inglaterra</td><td>No</td></tr>
+        <tr data-rol="Contencion"><td>Jhon Solís</td><td>Volante</td><td>Contención</td><td>Birmingham City</td><td>Inglaterra</td><td>Sí</td></tr>
+        <tr data-rol="Armado"><td>Juan Manuel Rengifo</td><td>Volante</td><td>Armado</td><td>Atlético Nacional</td><td>Colombia</td><td>Sí</td></tr>
+        <tr data-rol="Contencion"><td>Kevin Castaño</td><td>Volante</td><td>Contención</td><td>Cruz Azul</td><td>México</td><td>Sí</td></tr>
+        <tr data-rol="Armado"><td>Matías Orozco</td><td>Volante</td><td>Armado</td><td>Castellón</td><td>España</td><td>Sí</td></tr>
+        <tr data-rol="Contencion"><td>Richard Ríos</td><td>Volante</td><td>Contención</td><td>Benfica</td><td>Portugal</td><td>No</td></tr>
+        <tr data-rol="Armado"><td>Yáser Asprilla</td><td>Volante</td><td>Armado</td><td>Girona</td><td>España</td><td>No</td></tr>
         <tr data-rol="Delantero"><td>Camilo Durán</td><td>Delantero</td><td>Delantero</td><td>Junior</td><td>Colombia</td><td>Sí</td></tr>
         <tr data-rol="Delantero"><td>Carlos Andrés Gómez</td><td>Delantero</td><td>Delantero</td><td>Independiente Medellín</td><td>Colombia</td><td>Sí</td></tr>
         <tr data-rol="Delantero"><td>Kevin Viveros</td><td>Delantero</td><td>Delantero</td><td>Junior</td><td>Colombia</td><td>Sí</td></tr>
@@ -63,26 +67,31 @@
         <tr data-rol="Delantero"><td>Óscar Perea</td><td>Delantero</td><td>Delantero</td><td>Deportivo Cali</td><td>Colombia</td><td>Sí</td></tr>
     </table>
     <script>
-        function abrirDefensas(boton) {
-            document.getElementById('submenu').classList.toggle('abierto');
-            filtrar('Defensa', boton);
+        function abrirSub(id, puesto, boton) {
+            document.querySelectorAll('.submenu').forEach(s => {
+                if (s.id !== id) s.classList.remove('abierto');
+            });
+            document.getElementById(id).classList.toggle('abierto');
+            filtrar(puesto, boton);
         }
         function filtrar(puesto, boton) {
             document.querySelectorAll('.filtros > button').forEach(b => b.classList.remove('activo'));
             document.querySelectorAll('.submenu button').forEach(b => b.classList.remove('activo'));
             boton.classList.add('activo');
-            if (puesto !== 'Defensa' && !puesto.startsWith('Lateral') && puesto !== 'Central') {
-                document.getElementById('submenu').classList.remove('abierto');
-            } else {
-                document.getElementById('btn-defensas').classList.add('activo');
-            }
+            const esDefensa = puesto === 'Defensa' || puesto === 'Central' || puesto.startsWith('Lateral');
+            const esVolante = puesto === 'Volante' || puesto === 'Contencion' || puesto === 'Armado';
+            if (!esDefensa) document.getElementById('defensas').classList.remove('abierto');
+            if (!esVolante) document.getElementById('volantes').classList.remove('abierto');
+            if (esDefensa) document.getElementById('btn-defensas').classList.add('activo');
+            if (esVolante) document.getElementById('btn-volantes').classList.add('activo');
             document.querySelectorAll('#tabla tr').forEach((fila, i) => {
                 if (i === 0) return;
                 const rol = fila.dataset.rol;
                 const ok = puesto === 'Todos'
-                    || puesto === 'Defensa'
-                    || rol === puesto
-                    || (puesto === 'Lateral' && rol.startsWith('Lateral'));
+                    || puesto === 'Defensa' && (rol === 'Central' || rol.startsWith('Lateral'))
+                    || puesto === 'Volante' && (rol === 'Contencion' || rol === 'Armado')
+                    || puesto === 'Lateral' && rol.startsWith('Lateral')
+                    || rol === puesto;
                 fila.style.display = ok ? '' : 'none';
             });
         }
