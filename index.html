@@ -6,7 +6,10 @@
     <title>Selección Colombia — Convocatoria</title>
     <style>
         body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
-        h1 { color: #fcd116; text-align: center; }
+        h1 { color: #003893; text-align: center; }
+        .filtros { text-align: center; margin: 16px 0; }
+        button { margin: 4px; padding: 8px 14px; border: 0; border-radius: 6px; background: #003893; color: white; cursor: pointer; }
+        button.activo { background: #fcd116; color: #003893; }
         table { width: 100%; border-collapse: collapse; background: white; }
         th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
         th { background: #003893; color: white; }
@@ -15,7 +18,14 @@
 </head>
 <body>
     <h1>Selección Colombia — Convocatoria 17 de septiembre de 2026</h1>
-    <table>
+    <div class="filtros">
+        <button class="activo" onclick="filtrar('Todos', this)">Todos</button>
+        <button onclick="filtrar('Arquero', this)">Arqueros</button>
+        <button onclick="filtrar('Defensa', this)">Defensas</button>
+        <button onclick="filtrar('Volante', this)">Volantes</button>
+        <button onclick="filtrar('Delantero', this)">Delanteros</button>
+    </div>
+    <table id="tabla">
         <tr><th>Nombre</th><th>Posición</th><th>Club</th><th>País</th><th>Debutante</th></tr>
         <tr><td>Aldair Quintana</td><td>Arquero</td><td>Independiente del Valle</td><td>Ecuador</td><td>Sí</td></tr>
         <tr><td>Álvaro Montero</td><td>Arquero</td><td>Boca Juniors</td><td>Argentina</td><td>No</td></tr>
@@ -44,5 +54,16 @@
         <tr><td>Luis Suárez</td><td>Delantero</td><td>Almería</td><td>España</td><td>No</td></tr>
         <tr><td>Óscar Perea</td><td>Delantero</td><td>Deportivo Cali</td><td>Colombia</td><td>Sí</td></tr>
     </table>
+    <script>
+        function filtrar(posicion, boton) {
+            document.querySelectorAll('button').forEach(b => b.classList.remove('activo'));
+            boton.classList.add('activo');
+            document.querySelectorAll('#tabla tr').forEach((fila, i) => {
+                if (i === 0) return;
+                const celda = fila.cells[1].textContent;
+                fila.style.display = (posicion === 'Todos' || celda === posicion) ? '' : 'none';
+            });
+        }
+    </script>
 </body>
 </html>
